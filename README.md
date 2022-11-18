@@ -12,6 +12,36 @@
 8. Create service and expose it: `kubectl expose deployment hello-node --type=LoadBalancer --port=8080`
 9. View services:  `kubectl get services`
 10. Curl the url shown, for example: `curl http://192.168.49.2:31839` or change to your URL.
+11. Cleanup
+```bash
+kubectl delete service hello-node
+kubectl delete deployment hello-node
+minikube stop
+````
+
+## Task 2: Deploy with Kubernetes FastAPI app
+
+1.  Push container to DockerHub (Optional): i.e. 
+`docker build -t <hub-user>/<repo-name>[:<tag>]` and `docker push <hub-user>/<repo-name>:<tag>`
+Example of a pushed FastAPI container here:  https://hub.docker.com/repository/docker/noahgift/fastapi-kube
+2. `minikube start`
+3. `minikube dashboard --url`
+4. Hover over link and "follow link"
+5. Create a deployment: `kubectl create deployment hello-fastapi --image=registry.hub.docker.com/noahgift/fastapi-kube`
+6. View deployment: `kubectl get deployments`
+7. Create service and expose it: `kubectl expose deployment hello-fastapi --type=LoadBalancer --port=8080`
+8. View services:  `kubectl get service hello-fastapi`
+9.  `minikube service hello-fastapi --url`
+10. Curl web service: i.e. `curl http://192.168.49.2:31224`
+11.  Cleanup
+12. Cleanup
+```bash
+kubectl delete service hello-fastapi
+kubectl delete deployment hello-fastapi
+minikube stop
+````
+
+## Notes below
 
 # fastapi-from-zero
 A repository to demonstrate FastAPI
@@ -32,8 +62,7 @@ A repository to demonstrate FastAPI
 
   ![continuous-delivery](https://user-images.githubusercontent.com/58792/192845522-09207ae8-0dfb-4d31-b0a3-d396765d0db7.png)
 
-  
-  
+
 * Clone repo into Cloud9 (pick a machine with decent size CPU and RAM if possible, but students should use micro)
 * Add ssh keys to GitHub
 * [resize to bigger disk](https://gist.github.com/wongcyrus/a4e726b961260395efa7811cab0b4516)
@@ -68,3 +97,4 @@ and [Makefile](https://github.com/nogibjj/fastapi-from-zero/blob/main/Makefile)
 
 * [FastAPI Docker docs](https://github.com/tiangolo/uvicorn-gunicorn-fastapi-docker)
 * [Hello minikube](https://kubernetes.io/docs/tutorials/hello-minikube/)
+* [Reference](https://kubernetes.io/blog/2019/07/23/get-started-with-kubernetes-using-python/)
